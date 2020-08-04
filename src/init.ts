@@ -121,6 +121,7 @@ export function init(): IInitReturnValue | undefined {
     debug('Skip actions cause the branch is not necessary to be handled')
     return
   }
+  debug(`Branch serial number is ${currentBranchSerialNumber}`)
   const {token: gitHubToken} = contextEnv
   let octokit: ReturnType<typeof gitHub.getOctokit>
 

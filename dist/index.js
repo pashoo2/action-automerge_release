@@ -618,6 +618,7 @@ function init() {
         log_1.debug('Skip actions cause the branch is not necessary to be handled');
         return;
     }
+    log_1.debug(`Branch serial number is ${currentBranchSerialNumber}`);
     const { token: gitHubToken } = contextEnv;
     let octokit;
     // initialize the Octokit instance
