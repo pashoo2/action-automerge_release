@@ -27,7 +27,7 @@ export async function fetchBranchesList(
   const requestParams = {
     owner: getPRRepoOwner(pushDescription),
     repo: getPRRepo(pushDescription),
-    ref: getBranchRefPrefix(branchPrefix),
+    ref: 'heads/', // getBranchRefPrefix(branchPrefix),
     page,
     per_page: perPage
   };
