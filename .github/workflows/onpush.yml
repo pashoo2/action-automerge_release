@@ -1,0 +1,13 @@
+name: 'build-test'
+on: push
+
+jobs:
+  merge_to_releases: # make sure build/ci work properly
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./
+        with:
+          mainBranchName: 'master'
+          releaseBranchPrfix: 'release'
+          releaseBranchTaskPrefix: 'RLS-'
