@@ -40,14 +40,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: optimaxdev/action-automerge_release@master
-        name: run_automerge
-        id: run_automerge
         with:
           token: ${{ secrets.TOKEN }}
           mainBranchName: 'master'
           releaseBranchPrfix: 'rel'
           releaseBranchTaskPrefix: 'v.'
-
 ```
 
 where:
