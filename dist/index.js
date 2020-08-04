@@ -562,7 +562,7 @@ function getPushDescription(context) {
         return context.payload.pull_request;
     }
     //https://developer.github.com/webhooks/event-payloads/#push
-    const repoName = (_a = context.payload.repository) === null || _a === void 0 ? void 0 : _a.full_name;
+    const repoName = (_a = context.payload.repository) === null || _a === void 0 ? void 0 : _a.name;
     if (!repoName) {
         throw new Error('Failed to get repository name');
     }
@@ -3776,6 +3776,7 @@ const log_1 = __webpack_require__(936);
 const github_common_1 = __webpack_require__(312);
 /**
  * List branches via the GitHub API
+ * https://developer.github.com/v3/git/refs/#list-matching-references
  *
  * @export
  * @param {TGitHubOctokit} octokit

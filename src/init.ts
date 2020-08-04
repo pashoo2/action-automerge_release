@@ -47,7 +47,7 @@ export function getPushDescription(
   }
 
   //https://developer.github.com/webhooks/event-payloads/#push
-  const repoName = context.payload.repository?.full_name
+  const repoName = context.payload.repository?.name
 
   if (!repoName) {
     throw new Error('Failed to get repository name')
