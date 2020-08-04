@@ -562,7 +562,7 @@ function getPushDescription(context) {
         return context.payload.pull_request;
     }
     //https://developer.github.com/webhooks/event-payloads/#push
-    const repoName = (_a = context.payload.repository) === null || _a === void 0 ? void 0 : _a.full_name;
+    const repoName = (_a = context.payload.repository) === null || _a === void 0 ? void 0 : _a.name;
     if (!repoName) {
         throw new Error('Failed to get repository name');
     }
@@ -618,6 +618,7 @@ function init() {
         log_1.debug('Skip actions cause the branch is not necessary to be handled');
         return;
     }
+    log_1.debug(`Branch serial number is ${currentBranchSerialNumber}`);
     const { token: gitHubToken } = contextEnv;
     let octokit;
     // initialize the Octokit instance
@@ -3775,6 +3776,7 @@ const log_1 = __webpack_require__(936);
 const github_common_1 = __webpack_require__(312);
 /**
  * List branches via the GitHub API
+ * https://developer.github.com/v3/git/refs/#list-matching-references
  *
  * @export
  * @param {TGitHubOctokit} octokit
@@ -6518,12 +6520,29 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.mergeToBranches = exports.getTargetBranchesNames = exports.getBranchesRelatedToPD = exports.mergeSourceToBranch = exports.getBranchesWithUpperSerialNumber = exports.getBranchNameReleaseSerialNumber = exports.getBranchNameWithoutPrefix = void 0;
+exports.mergeToBranches = exports.getTargetBranchesNames = exports.getBranchesRelatedToPD = exports.mergeSourceToBranch = exports.getBranchesWithUpperSerialNumber = exports.getBranchNameReleaseSerialNumber = exports.getBranchNameWithoutPrefix = exports.getBranchNameWithoutRefsPrefix = void 0;
 const path_1 = __importDefault(__webpack_require__(622));
 const log_1 = __webpack_require__(936);
 const github_common_1 = __webpack_require__(312);
 const repo_api_1 = __webpack_require__(511);
 const repo_1 = __webpack_require__(316);
+const github_1 = __webpack_require__(272);
+/**
+ * Remove refs/heads prefix from a branch name,
+ * if it is presented in a branches name string.
+ *
+ * @export
+ * @param {string} branchName
+ * @returns {string}
+ */
+function getBranchNameWithoutRefsPrefix(branchName) {
+    const regEx = new RegExp(`^[ ]*/*${github_1.GIT_REF_HEADS_PREFIX}`, 'i');
+    const matching = branchName.match(regEx);
+    return matching && matching[0]
+        ? branchName.slice(matching[0].length)
+        : branchName;
+}
+exports.getBranchNameWithoutRefsPrefix = getBranchNameWithoutRefsPrefix;
 /**
  * Return branch name without prefix
  * passed in releasePrefix argument.
@@ -6534,7 +6553,7 @@ const repo_1 = __webpack_require__(316);
  * @returns {string}
  */
 function getBranchNameWithoutPrefix(branchName, releasePrefix) {
-    const branchNameTrimmed = branchName.trim();
+    const branchNameTrimmed = getBranchNameWithoutRefsPrefix(branchName).trim();
     const releasePathTrimmed = branchName.includes('/')
         ? path_1.default.join(releasePrefix.trim(), '/')
         : releasePrefix.trim();
