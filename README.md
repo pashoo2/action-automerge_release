@@ -36,7 +36,7 @@ name: 'Automerge'
 on: push
 
 jobs:
-  merge_to_releases: # make sure build/ci work properly
+  merge_to_releases:
     runs-on: ubuntu-latest
     steps:
       - uses: optimaxdev/action-automerge_release@master
