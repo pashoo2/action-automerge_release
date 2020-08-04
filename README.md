@@ -201,3 +201,10 @@ See the [versioning documentation](https://github.com/actions/toolkit/blob/maste
 ```npm run push``` or ```yarn push```.
 
 Source code will be compiled and pushed to the branch
+
+## ISSUES
+
+**Merge to the next release branch not trigger subsequent action**
+According to ``https://github.community/t/push-from-action-does-not-trigger-subsequent-action/16854``:
+An action pushes code using the repository’s GITHUB_TOKEN, a new workflow will not run even when the repository contains a workflow configured to run when push events occur.
+Please create a personal access token in repo setting(write permission accordingly), replace GITHUB_TOKEN
