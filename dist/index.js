@@ -570,7 +570,7 @@ function getPushDescription(context) {
     // then base.ref === head.ref and equals to
     // the branch were commit
     const pushedToBranchRef = context.payload.ref;
-    log_1.debug('getPushDescription::context.payload', context.payload);
+    log_1.debug('getPushDescription::context', context);
     return {
         base: {
             ref: pushedToBranchRef,
@@ -6748,7 +6748,7 @@ exports.debug = (...args) => {
     if (process.env.NODE_ENV === 'test')
         return;
     console.log(`\n \x1b[43m######  \x1b[47m\x1b[30m(${debugItem}.)`);
-    console.log(...args.map((a, idx) => `   \x1b[32m${idx}. ${a && typeof a === "object" ? util_1.default.inspect(a, { colors: true, sorted: true }) : a}\n`));
+    console.log(...args.map((a, idx) => `   \x1b[32m${idx}. ${a && typeof a === "object" ? util_1.default.inspect(a, { colors: true, sorted: true, depth: 4 }) : a}\n`));
     console.log(`\x1b[47m\x1b[30m(${debugItem++}.)  \x1b[43m######\n`);
 };
 
