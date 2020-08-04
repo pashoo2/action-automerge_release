@@ -10,4 +10,4 @@ jobs:
         with:
           mainBranchName: 'master'
           releaseBranchPrfix: 'release'
-          releaseBranchTaskPrefix: 'REL'
+          releaseBranchTaskPrefix: 'RLS-'
