@@ -36,11 +36,12 @@ name: 'Automerge'
 on: push
 
 jobs:
-  merge_to_releases: # make sure build/ci work properly
+  merge_to_releases:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: ./
+      - uses: optimaxdev/action-automerge_release@master
+        name: run_automerge
+        id: run_automerge
         with:
           token: ${{ secrets.TOKEN }}
           mainBranchName: 'master'
