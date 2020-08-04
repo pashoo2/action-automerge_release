@@ -3792,7 +3792,7 @@ function fetchBranchesList(octokit, pushDescription, branchPrefix, page = 1, per
         const requestParams = {
             owner: github_common_1.getPRRepoOwner(pushDescription),
             repo: github_common_1.getPRRepo(pushDescription),
-            ref: 'heads/',
+            ref: github_common_1.getBranchRefPrefix(branchPrefix),
             page,
             per_page: perPage
         };
